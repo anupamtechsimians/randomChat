@@ -6,7 +6,14 @@ const { v4: uuidv4 } = require("uuid");
 app.set("view engine", "ejs");
 
 const startServer = async () => {
-  const client = redis.createClient();
+  const client = redis.createClient({
+    password: '8K9DGtWbC7G4r2QJLiUWJJJXuisLyC4a',
+    socket: {
+        host: 'redis-18796.c264.ap-south-1-1.ec2.redns.redis-cloud.com',
+        port: 18796
+    }
+});
+  
   await client.connect();
 
   client.on('error', (err) => {
@@ -89,7 +96,7 @@ io.on("connection", async (socket) => {
   });
 });
 
-server.listen(process.env.PORT || 3030);
+server.listen(process.env.PORT || 3030,()=>{console.log("server connected.")});
 
 }
 
